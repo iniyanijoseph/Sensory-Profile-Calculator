@@ -86,9 +86,34 @@ func _on_ExportButton_pressed():
 	var file := File.new()
 	var _x = file.open(exportPath, File.WRITE)
 	var line : Array
+	file.store_csv_line(["Low Registration"])
 	for input in inputValues:
-		line = (["Question " + str(input.tagNum), str(input.inputValue)])
-		file.store_csv_line(line)
+		if(input.tagNum in lowRegistration):
+			line = (["Q" + str(input.tagNum), str(input.inputValue)])
+			file.store_csv_line(line)
+	file.store_csv_line([""])
+	
+	file.store_csv_line(["Sensation Seeking"])
+	for input in inputValues:
+		if(input.tagNum in sensationSeeking):
+			line = (["Q" + str(input.tagNum), str(input.inputValue)])
+			file.store_csv_line(line)
+	file.store_csv_line([""])
+	
+	file.store_csv_line(["Sensory Sensitivity"])
+	for input in inputValues:
+		if(input.tagNum in sensorySensitivity):
+			line = (["Q" + str(input.tagNum), str(input.inputValue)])
+			file.store_csv_line(line)
+	file.store_csv_line([""])
+
+	file.store_csv_line(["Sensation Avoiding"])
+	for input in inputValues:
+		if(input.tagNum in sensationAvoiding):
+			line = (["Q" + str(input.tagNum), str(input.inputValue)])
+			file.store_csv_line(line)
+	file.store_csv_line([""])
+
 	
 	line = (["Low Registration Raw Score", str(lowRegistrationRawScore)])
 	file.store_csv_line(line)
@@ -98,7 +123,8 @@ func _on_ExportButton_pressed():
 	file.store_csv_line(line)
 	line = (["Sensation Avoiding Raw Score", str(sensationAvoidingRawScore)])
 	file.store_csv_line(line)
-
+	file.store_csv_line([""])
+	
 	var chart : Array
 	var age := int(ageEdit.text)
 	if age <= 17:
